@@ -22,7 +22,7 @@ public interface InventoryDao {
     @Query("SELECT * from inventarios")
     LiveData<List<Inventory>> getAllInventories();
 
-    @Transaction
+    /*@Transaction
     @Query("SELECT * FROM inventarios")
-    public List<InventoryWithProducts> getInventoriesWithProducts();
+    public List<InventoryWithProducts> getInventoriesWithProducts();*/
 }

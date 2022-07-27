@@ -1,8 +1,12 @@
 package com.ombuweb.sirpda;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
 
@@ -10,11 +14,14 @@ import java.util.List;
 public interface ProductDao {
 
     @Insert
-    void insert(Product product);
+    ListenableFuture<Long[]> insertProducts(List<Product> products);
+
+@Insert(onConflict = OnConflictStrategy.REPLACE)
+    ListenableFuture<Long> insert(Product product);
 
     @Query("SELECT * FROM products")
-    List<Product> getAllProducts();
+    LiveData<List<Product>> getAllProducts();
 
     @Query("SELECT * FROM products WHERE inventory_id=:inventoryId")
-    List<Product> findProductsForInventory(final int inventoryId);
+    LiveData<List<Product>> findProductsForInventory(final int inventoryId);
 }

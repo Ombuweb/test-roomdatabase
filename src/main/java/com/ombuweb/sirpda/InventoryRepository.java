@@ -30,7 +30,7 @@ public class InventoryRepository {
         return mInventoryDao.insert(inventory);
     }
 
-    private static class insertAsyncTask extends AsyncTask<Inventory, Void, Integer> {
+   /* private static class insertAsyncTask extends AsyncTask<Inventory, Void, Integer> {
 
         private InventoryDao mAsyncTaskDao;
 
@@ -48,6 +48,6 @@ public class InventoryRepository {
         protected void onPostExecute(Integer integer) {
             Log.i("ROOMY", (integer).toString());
         }
-    }
+    }*/
 }
 

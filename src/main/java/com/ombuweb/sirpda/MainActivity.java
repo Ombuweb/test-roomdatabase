@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.common.util.concurrent.ListenableFuture;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,11 +20,15 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
     private InventoryViewModel mInventoryViewModel;
+    private ProductViewModel mProductViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,13 +37,34 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mInventoryViewModel = ViewModelProviders.of(this).get(InventoryViewModel.class);
+        mProductViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
         Date fecha = new Date();
         Long hora = fecha.getTime();
         Inventory inventory = new Inventory(
                 fecha, hora,"miAlmancen","DEscription",
                 "Nandee"
         );
-        mInventoryViewModel.insert(inventory);
+        //mInventoryViewModel.insert(inventory);
+        Product pro1 = new Product(16L,"1234","lote",
+                20,23.89,
+                50,"code1",null);
+        Product pro2 = new Product(16L,"1234","lote",
+                20,23.89,
+                50,"code1",null);
+        List<Product> products = new ArrayList<Product>();
+        products.add(pro1);
+        products.add(pro2);
+        mProductViewModel.insertProducts(products);
+        ListenableFuture<Long> lo = mProductViewModel.insert(pro1);
+        try {
+            Log.i("MyM", "TESt");
+
+            Log.i("MyM", lo.get().toString());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         mInventoryViewModel.getAllInventories().observe(this, new Observer<List<Inventory>>() {
             @Override
             public void onChanged(@Nullable final List<Inventory> inventories) {

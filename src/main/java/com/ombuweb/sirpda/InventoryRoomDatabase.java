@@ -11,11 +11,14 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
 import java.util.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.concurrent.ExecutionException;
 
-@Database(entities = {Inventory.class, Product.class}, version = 1, exportSchema = false)
+@Database(entities = {Product.class,Inventory.class}, version = 1, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class InventoryRoomDatabase  extends RoomDatabase {
 
@@ -30,12 +33,28 @@ public abstract class InventoryRoomDatabase  extends RoomDatabase {
                     super.onOpen(db);
                     //new PopulateDbAsync(INSTANCE).execute();
                     InventoryDao inventoryDao = INSTANCE.inventoryDao();
+                    ProductDao productDao = INSTANCE.productDao();
                     Date fecha = new Date();
                     Long hora = fecha.getTime();
                     Inventory inventory = new Inventory(
                             fecha, hora,"miAlmancen","DEscription",
                             "Nandee"
                     );
+                    Product pro1 = new Product(16L,"1234","lote",
+                            20,23.89,
+                            50,"code1",null);
+
+                    try {
+                        ListenableFuture<Long> id =productDao.insert(pro1);
+
+                        Log.i("ONOp", ""+id.get().toString());
+                    } catch (ExecutionException e) {
+                        Log.i("ONOp", "");
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        Log.i("ONOp", "HEY");
+                    }
                     //inventoryDao.insert(inventory);
                     //inventoryDao.deleteAll();
                 }

@@ -5,7 +5,7 @@ import androidx.room.Relation;
 
 import java.util.List;
 
-public class InventoryWithProducts {
+/*public class InventoryWithProducts {
     @Embedded
     public Inventory inventory;
     @Relation(
@@ -13,4 +13,4 @@ public class InventoryWithProducts {
             entityColumn = "inventory_id"
     )
     public List<Product> products;
-}
+}*/

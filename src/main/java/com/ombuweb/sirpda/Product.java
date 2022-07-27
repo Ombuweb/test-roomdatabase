@@ -29,12 +29,12 @@ public class Product {
     private  String codigo_de_incidencia;
     private  String observaciones;
 
-public  Product(@NonNull String codigo_de_articulo,String lote,
+public  Product(@NonNull Long inventory_id,@NonNull String codigo_de_articulo,String lote,
                 @NonNull Integer unidades, @NonNull Double precio_de_coste,
                 @NonNull Integer unidades_anteriores,
                 String codigo_de_incidencia,
                 String observaciones){
-
+this.inventory_id = inventory_id;
     this.codigo_de_articulo = codigo_de_articulo;
     this.lote = lote;
     this.unidades = unidades;
@@ -48,7 +48,6 @@ public  Product(@NonNull String codigo_de_articulo,String lote,
     public String getCodigo_de_articulo() {
         return codigo_de_articulo;
     }
-
 
     public String getLote() {
         return lote;
