@@ -24,7 +24,7 @@ public class ProductRepository {
         return  mAllProducts;
     }
 ListenableFuture<Long> insert(Product product){
-        return mProductDao.insert(product);
+    Log.i("IN Pr","INSERT");return mProductDao.insert(product);
 }
     ListenableFuture<Long[]> insertProducts(List<Product> products){
         Log.i("IN Pr", products.get(1).getLote());

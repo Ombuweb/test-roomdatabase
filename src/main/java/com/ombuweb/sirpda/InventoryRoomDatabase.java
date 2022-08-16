@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.concurrent.ExecutionException;
 
-@Database(entities = {Product.class,Inventory.class}, version = 1, exportSchema = false)
+@Database(entities = {Product.class,Inventory.class}, version = 4, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class InventoryRoomDatabase  extends RoomDatabase {
 
@@ -34,29 +34,7 @@ public abstract class InventoryRoomDatabase  extends RoomDatabase {
                     //new PopulateDbAsync(INSTANCE).execute();
                     InventoryDao inventoryDao = INSTANCE.inventoryDao();
                     ProductDao productDao = INSTANCE.productDao();
-                    Date fecha = new Date();
-                    Long hora = fecha.getTime();
-                    Inventory inventory = new Inventory(
-                            fecha, hora,"miAlmancen","DEscription",
-                            "Nandee"
-                    );
-                    Product pro1 = new Product(16L,"1234","lote",
-                            20,23.89,
-                            50,"code1",null);
 
-                    try {
-                        ListenableFuture<Long> id =productDao.insert(pro1);
-
-                        Log.i("ONOp", ""+id.get().toString());
-                    } catch (ExecutionException e) {
-                        Log.i("ONOp", "");
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        Log.i("ONOp", "HEY");
-                    }
-                    //inventoryDao.insert(inventory);
-                    //inventoryDao.deleteAll();
                 }
             };
 
@@ -76,37 +54,5 @@ public abstract class InventoryRoomDatabase  extends RoomDatabase {
         return INSTANCE;
     }
 
-    /**
-     * Populate the database in the background.
-     */
-    /*private static class PopulateDbAsync extends AsyncTask<Void, Void,Long> {
 
-        private final InventoryDao mDao;
-
-
-        PopulateDbAsync(InventoryRoomDatabase db) {
-            mDao = db.inventoryDao();
-        }
-
-        @Override
-        protected Long doInBackground(final Void... params) {
-
-            // Start the app with a clean database every time.
-            // Not needed if you only populate the database
-            // when it is first created
-            Date fecha = new Date();
-            Long hora = fecha.getTime();
-Inventory inventory = new Inventory(
-        fecha, hora,"miAlmancen","DEscription",
-        "Nandee"
-        );
-            Log.i("ROOMD","HELLO");
-            Long i = mDao.insert(inventory);
-            return  i;
-        }
-
-        protected void onPostExecute(Integer integer) {
-            Log.i("ROOM", (integer).toString());
-        }
-    }*/
 }

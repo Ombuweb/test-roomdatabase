@@ -13,15 +13,15 @@ import java.util.List;
 public class InventoryRepository {
 
     private InventoryDao mInventoryDao;
-    private LiveData<List<Inventory>> mAllInventories;
+    private LiveData<List<InventoryWithProducts>> mAllInventories;
 
     InventoryRepository(Application application){
         InventoryRoomDatabase db = InventoryRoomDatabase.getDatabase(application);
         mInventoryDao = db.inventoryDao();
-        mAllInventories =mInventoryDao.getAllInventories();
+        mAllInventories =mInventoryDao.getInventoriesWithProducts();
     }
 
-    LiveData<List<Inventory>> getAllInventories(){
+    LiveData<List<InventoryWithProducts>> getAllInventories(){
         return  mAllInventories;
     }
 
@@ -29,7 +29,9 @@ public class InventoryRepository {
         //new  insertAsyncTask(mInventoryDao).execute(inventory);
         return mInventoryDao.insert(inventory);
     }
-
+void deleteInventory(Integer id){
+        mInventoryDao.deleteInventory(id);
+}
    /* private static class insertAsyncTask extends AsyncTask<Inventory, Void, Integer> {
 
         private InventoryDao mAsyncTaskDao;

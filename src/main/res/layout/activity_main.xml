@@ -20,14 +20,21 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
+<Button
+    android:id="@+id/save_button"
+    android:onClick="saveInvToLocal"
+    android:text="@string/save_to_local"
+    android:layout_width="200dp"
+    android:layout_height="50dp"
+    android:layout_gravity="center"
+    />
+    <Button
+        android:id="@+id/delete_button"
+        android:onClick="deleteInv"
+        android:text="@string/delete"
+        android:layout_gravity="bottom"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

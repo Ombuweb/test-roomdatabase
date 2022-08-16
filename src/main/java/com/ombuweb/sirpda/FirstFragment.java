@@ -6,11 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class FirstFragment extends Fragment {
-
+    private InventoryViewModel mInventoryViewModel;
+    private ProductViewModel mProductViewModel;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -25,10 +32,7 @@ public class FirstFragment extends Fragment {
 
         view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-            }
+            public void onClick(View view) {            }
         });
     }
 }

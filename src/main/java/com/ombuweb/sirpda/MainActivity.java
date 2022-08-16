@@ -9,6 +9,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.concurrent.futures.CallbackToFutureAdapter;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,61 +20,29 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 
 public class MainActivity extends AppCompatActivity {
     private InventoryViewModel mInventoryViewModel;
     private ProductViewModel mProductViewModel;
-
+    private Button saveBtn;
+    private Button deleteBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+saveBtn = findViewById(R.id.save_button);
+deleteBtn = findViewById(R.id.delete_button);
         mInventoryViewModel = ViewModelProviders.of(this).get(InventoryViewModel.class);
         mProductViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
-        Date fecha = new Date();
-        Long hora = fecha.getTime();
-        Inventory inventory = new Inventory(
-                fecha, hora,"miAlmancen","DEscription",
-                "Nandee"
-        );
-        //mInventoryViewModel.insert(inventory);
-        Product pro1 = new Product(16L,"1234","lote",
-                20,23.89,
-                50,"code1",null);
-        Product pro2 = new Product(16L,"1234","lote",
-                20,23.89,
-                50,"code1",null);
-        List<Product> products = new ArrayList<Product>();
-        products.add(pro1);
-        products.add(pro2);
-        mProductViewModel.insertProducts(products);
-        ListenableFuture<Long> lo = mProductViewModel.insert(pro1);
-        try {
-            Log.i("MyM", "TESt");
 
-            Log.i("MyM", lo.get().toString());
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        mInventoryViewModel.getAllInventories().observe(this, new Observer<List<Inventory>>() {
-            @Override
-            public void onChanged(@Nullable final List<Inventory> inventories) {
 
-                for(int i = 0; i < inventories.size(); i++) {
-                    System.out.println(inventories.get(i).getAlmancen());
-                }
-            }
-        });
     }
 
     @Override
@@ -96,5 +65,51 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void saveInvToLocal(View view) {
+
+        Date fecha = new Date();
+        Long hora = fecha.getTime();
+        Inventory inventory = new Inventory(
+                fecha, hora,"miAlmancen","DEscription",
+                "Nandee"
+        );
+        ListenableFuture<Long> future = mInventoryViewModel.insert(inventory);
+
+                try {
+                    Log.i("RUUM", future.isDone()+"");
+                    Long inv_id = future.get();
+                    Product pro1 = new Product(inv_id,"12384","lote",
+                            20,23.89,
+                            50,"code1",null);
+                    Product pro2 = new Product(inv_id,"1204","lote",
+                            20,23.89,
+                            50,"code1",null);
+                    List<Product> products = new ArrayList<Product>();
+                    products.add(pro1);
+                    products.add(pro2);
+                    //mProductViewModel.insert(pro1);
+                    mProductViewModel.insertProducts(products);
+                } catch (ExecutionException e) {
+                    Log.e("ERR", e.getMessage());
+                } catch (InterruptedException e) {
+                    Log.e("ERR", e.getMessage());
+                }
+
+        mInventoryViewModel.getAllInventories().observe(this, new Observer<List<InventoryWithProducts>>() {
+            @Override
+            public void onChanged(@Nullable final List<InventoryWithProducts> inventories) {
+Log.i("Obs", "IN OBS"+inventories.size());
+                for(int i = 0; i < inventories.size(); i++) {
+                    System.out.println(inventories.get(i).inventory);
+                }
+            }
+        });
+
+    }
+
+    public void deleteInv(View view) {
+mInventoryViewModel.deleteInventory(1);
     }
 }

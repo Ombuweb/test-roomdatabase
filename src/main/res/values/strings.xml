@@ -9,4 +9,7 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="save_inventory">Save Inventory</string>
+    <string name="save_to_local">Save To Local</string>
+    <string name="delete">Delete</string>
 </resources>

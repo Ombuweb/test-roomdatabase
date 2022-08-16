@@ -15,7 +15,7 @@ import java.util.Date;
 @Entity(tableName = "inventarios")
 public class Inventory {
     @PrimaryKey(autoGenerate = true)
-public  int id;
+public  int inventory_id;
     @TypeConverters(DateConverter.class)
     private Date fecha;
     private Long hora;

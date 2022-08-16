@@ -16,13 +16,18 @@ public interface InventoryDao {
     @Insert
     ListenableFuture<Long> insert(Inventory inventory);
 
+    @Query("DELETE FROM inventarios WHERE inventory_id = :id")
+    ListenableFuture<Void> deleteInventory(Integer id);
+
     @Query("DELETE FROM inventarios")
     ListenableFuture<Void> deleteAll();
 
     @Query("SELECT * from inventarios")
     LiveData<List<Inventory>> getAllInventories();
 
-    /*@Transaction
+    @Transaction
     @Query("SELECT * FROM inventarios")
-    public List<InventoryWithProducts> getInventoriesWithProducts();*/
+    LiveData<List<InventoryWithProducts>> getInventoriesWithProducts();
+
+
 }

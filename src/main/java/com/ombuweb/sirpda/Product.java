@@ -10,10 +10,10 @@ import androidx.room.PrimaryKey;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "products", foreignKeys = {@ForeignKey(entity = Inventory.class,parentColumns = {
-        "id"},childColumns = {"inventory_id"},onUpdate = CASCADE, onDelete = CASCADE)})
+        "inventory_id"},childColumns = {"inventory_id"},onUpdate = CASCADE, onDelete = CASCADE)})
 public class Product {
     @NonNull
-
+@ColumnInfo(index = true)
     public long inventory_id;
 
     @PrimaryKey
