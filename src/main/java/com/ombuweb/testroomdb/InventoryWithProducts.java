@@ -1,4 +1,4 @@
-package com.ombuweb.sirpda;
+package com.ombuweb.testroomdb;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;

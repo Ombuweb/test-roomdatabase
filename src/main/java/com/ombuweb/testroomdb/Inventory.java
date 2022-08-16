@@ -1,15 +1,10 @@
-package com.ombuweb.sirpda;
-
-import android.util.Log;
+package com.ombuweb.testroomdb;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 
 @Entity(tableName = "inventarios")

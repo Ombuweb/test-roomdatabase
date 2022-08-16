@@ -1,4 +1,4 @@
-package com.ombuweb.sirpda;
+package com.ombuweb.testroomdb;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

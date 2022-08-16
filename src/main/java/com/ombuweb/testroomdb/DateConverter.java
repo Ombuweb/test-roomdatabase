@@ -1,8 +1,7 @@
-package com.ombuweb.sirpda;
+package com.ombuweb.testroomdb;
 
 import androidx.room.TypeConverter;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 public class DateConverter {

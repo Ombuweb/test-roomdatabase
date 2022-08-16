@@ -1,4 +1,4 @@
-package com.ombuweb.sirpda;
+package com.ombuweb.testroomdb;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

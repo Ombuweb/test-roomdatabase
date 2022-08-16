@@ -1,7 +1,6 @@
-package com.ombuweb.sirpda;
+package com.ombuweb.testroomdb;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -10,8 +9,6 @@ import androidx.lifecycle.LiveData;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
 
 public class InventoryViewModel extends AndroidViewModel {
 

@@ -1,8 +1,6 @@
-package com.ombuweb.sirpda;
+package com.ombuweb.testroomdb;
 
 import android.app.Application;
-import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 

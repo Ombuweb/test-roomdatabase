@@ -1,8 +1,6 @@
-package com.ombuweb.sirpda;
+package com.ombuweb.testroomdb;
 
 import android.content.Context;
-import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -10,13 +8,6 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-
-import com.google.common.util.concurrent.ListenableFuture;
-
-import java.util.Date;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.concurrent.ExecutionException;
 
 @Database(entities = {Product.class,Inventory.class}, version = 4, exportSchema = false)
 @TypeConverters({DateConverter.class})
